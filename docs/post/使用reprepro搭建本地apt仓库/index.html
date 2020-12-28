@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>使用 reprepro 搭建本地 apt 仓库 - Clay Stan&#39;s Blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Clay Stan" /><meta name="description" content="在 debian 或基于 debian 的 linux 发行版上使用 reprepro 搭建本地 apt 仓库" /><meta name="keywords" content="Linux, Debian, reprepro, apt" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.79.1 with theme even" />
+
+
+<link rel="canonical" href="https://claystan.com/post/%E4%BD%BF%E7%94%A8reprepro%E6%90%AD%E5%BB%BA%E6%9C%AC%E5%9C%B0apt%E4%BB%93%E5%BA%93/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.c7bc1becf36bcf6a9ebd25d2947e43a2eb745ddb0c9a32b43126fd7fa460c351.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="使用 reprepro 搭建本地 apt 仓库" />
+<meta property="og:description" content="在 debian 或基于 debian 的 linux 发行版上使用 reprepro 搭建本地 apt 仓库" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://claystan.com/post/%E4%BD%BF%E7%94%A8reprepro%E6%90%AD%E5%BB%BA%E6%9C%AC%E5%9C%B0apt%E4%BB%93%E5%BA%93/" />
+<meta property="article:published_time" content="2020-12-27T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-12-27T00:00:00+00:00" />
+<meta itemprop="name" content="使用 reprepro 搭建本地 apt 仓库">
+<meta itemprop="description" content="在 debian 或基于 debian 的 linux 发行版上使用 reprepro 搭建本地 apt 仓库">
+<meta itemprop="dateModified" content="2020-12-27T00:00:00+00:00" />
+<meta itemprop="wordCount" content="1900">
+
+
+
+<meta itemprop="keywords" content="Linux,Debian,reprepro,apt," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="使用 reprepro 搭建本地 apt 仓库"/>
+<meta name="twitter:description" content="在 debian 或基于 debian 的 linux 发行版上使用 reprepro 搭建本地 apt 仓库"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Clay Stan</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Clay Stan</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">使用 reprepro 搭建本地 apt 仓库</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-12-27 </span>
+        <div class="post-category">
+            <a href="/categories/linux/"> Linux </a>
+            <a href="/categories/debian/"> Debian </a>
+            </div>
+          <span class="more-meta"> 约 1900 字 </span>
+          <span class="more-meta"> 预计阅读 4 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h4 id="heading"></h4>
+<p><code>Debian</code> 使用<code>reprepro</code>搭建本地<code>apt</code>仓库</p>
+<p><code>reprepro</code> 是用于管理 deb 格式软件包，生成用于分发的仓库管理工具。 支持 <code>.dsc/.deb/.udeb</code> 等格式；会根据配置生成 <code>Packages/Sources</code> 文件以及压缩版本， 并对 <code>Release</code> (根据配置还生成 <code>Release.gpg</code>) 。</p>
+<p>简而言之：我们可以用这个工具来建立私有的本地 deb 仓库，而不需要将包推到操作系统官方仓库就能使用。</p>
+<h4 id="需要的工具">需要的工具</h4>
+<p><strong>gpg</strong>：用来生成签名的密钥</p>
+<p><strong>apache2</strong>：搭建<code>http</code>服务（或者使用<code>nginx</code>）</p>
+<p><strong>reprepro</strong>：工具本体 用来管理本地<code>apt</code>仓库</p>
+<p>安装以上需要的工具</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">$ sudo apt install gpg reprepro apache2
+</code></pre></td></tr></table>
+</div>
+</div><ol>
+<li>
+<p>首先，我们使用<code>gpg</code>来生成一个密钥对</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">$ gpg --full-gen-key   <span class="c1">#生成密钥对</span>
+$ gpg --list-keys <span class="c1">#查看公钥</span>
+$ gpg --list-secret-keys  <span class="c1">#查看私钥</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>关于<code>gnupg</code>更多和详细使用方法参考：<a href="https://wiki.archlinux.org/index.php/GnuPG_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)">Arch wiki GnuPG (简体中文)</a></p>
+</li>
+<li>
+<p>在<code>Apache2</code>的目录下创建<code>apt</code>仓库需要的配置文件</p>
+<p><code>Apache2</code>的<code>http</code>的服务目录默认是<code>/var/www/html</code></p>
+<p>我们删除默认的<code>index.html</code>文件 创建我们需要的配置文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">➜  ~ <span class="nb">cd</span> /var/www/html/    
+➜  rm index.html
+➜  mkdir repo 		<span class="c1">#创建apt仓库的目录 repo</span>
+➜  <span class="nb">cd</span> repo 
+➜  mkdir conf		<span class="c1">#在repo目录创建我们需要的配置文件目录 conf</span>
+➜  touch conf/distributions <span class="c1">#创建我们需要的配置文件</span>
+➜  touch conf/options 
+</code></pre></td></tr></table>
+</div>
+</div><p>distributions文件描述了仓库的一些属性</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">Origin: debian
+Suite: sid
+Label: dde
+Codename: dde-sid
+Architectures: i386 amd64 arm64 mips64el powerpc <span class="nb">source</span>
+Components: main contrib non-free
+Description: DDE <span class="nb">local</span> repository <span class="k">for</span> debian
+SignWith: 4588CB58CB8935FAC7DD02D023C0FC60B040BEC3
+Log: dde-sid.log
+</code></pre></td></tr></table>
+</div>
+</div><p>origin，suite， lable，codename：是仓库的信息，可以自定义</p>
+<p>Architectures：表示该仓库支持那些系统架构的包，以及是否支持源码包</p>
+<p>Components：表示仓库将包含哪些种类的包，<code>main</code>为完全开源，<code>contrib</code>为包本身是遵守<code>dfsg</code>方针，但是其编译依赖或者依赖属于<code>non-free</code>、<code>non-free</code>为完全不开源</p>
+<p>Description：是本仓库的描述信息</p>
+<p>SignWith：使用一个<code>gpg</code>密钥来签名（<code>gpg --list-keys</code>命令查看有哪些密钥）</p>
+<p>options 文件 你可以根据你的喜好来配置</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">verbose
+basedir /var/www/html/repo
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>然后我们就可以使用<code>reprepro</code>命令来管理本地仓库，比如将本地打的 deb 包和源码包导入</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">$ reprepro -C main -b . includedeb dde-sid ~/wks/dtkcore_5.2.2.5-1.deb   <span class="c1">#导入deb包</span>
+   
+$ reprepro includedsc dde-sid ~/wks/dtkcore_5.2.2.5-1.dsc <span class="c1">#导入源码包</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>导入后我们可以使用tree命令来查看本地目录，可以看到它自动生成了一个仓库所必要的文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span><span class="lnt">86
+</span><span class="lnt">87
+</span><span class="lnt">88
+</span><span class="lnt">89
+</span><span class="lnt">90
+</span><span class="lnt">91
+</span><span class="lnt">92
+</span><span class="lnt">93
+</span><span class="lnt">94
+</span><span class="lnt">95
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">➜  repo tree
+.
+├── conf
+│   ├── distributions
+│   └── options
+├── db
+│   ├── checksums.db
+│   ├── contents.cache.db
+│   ├── packages.db
+│   ├── references.db
+│   ├── release.caches.db
+│   └── version
+├── dists
+│   └── buster
+│       ├── contrib
+│       │   ├── binary-amd64
+│       │   │   ├── Packages
+│       │   │   ├── Packages.gz
+│       │   │   └── Release
+│       │   ├── binary-arm64
+│       │   │   ├── Packages
+│       │   │   ├── Packages.gz
+│       │   │   └── Release
+│       │   ├── binary-i386
+│       │   │   ├── Packages
+│       │   │   ├── Packages.gz
+│       │   │   └── Release
+│       │   ├── binary-mips64el
+│       │   │   ├── Packages
+│       │   │   ├── Packages.gz
+│       │   │   └── Release
+│       │   └── <span class="nb">source</span>
+│       │       ├── Release
+│       │       └── Sources.gz
+│       ├── InRelease
+│       ├── main
+│       │   ├── binary-amd64
+│       │   │   ├── Packages
+│       │   │   ├── Packages.gz
+│       │   │   └── Release
+│       │   ├── binary-arm64
+│       │   │   ├── Packages
+│       │   │   ├── Packages.gz
+│       │   │   └── Release
+│       │   ├── binary-i386
+│       │   │   ├── Packages
+│       │   │   ├── Packages.gz
+│       │   │   └── Release
+│       │   ├── binary-mips64el
+│       │   │   ├── Packages
+│       │   │   ├── Packages.gz
+│       │   │   └── Release
+│       │   └── <span class="nb">source</span>
+│       │       ├── Release
+│       │       └── Sources.gz
+│       ├── non-free
+│       │   ├── binary-amd64
+│       │   │   ├── Packages
+│       │   │   ├── Packages.gz
+│       │   │   └── Release
+│       │   ├── binary-arm64
+│       │   │   ├── Packages
+│       │   │   ├── Packages.gz
+│       │   │   └── Release
+│       │   ├── binary-i386
+│       │   │   ├── Packages
+│       │   │   ├── Packages.gz
+│       │   │   └── Release
+│       │   ├── binary-mips64el
+│       │   │   ├── Packages
+│       │   │   ├── Packages.gz
+│       │   │   └── Release
+│       │   └── <span class="nb">source</span>
+│       │       ├── Release
+│       │       └── Sources.gz
+│       ├── Release
+│       └── Release.gpg
+└── pool
+    └── main
+        ├── p
+        │   └── postman
+        │       ├── postman_7.27.1-1_amd64.deb
+        │       ├── postman_7.27.1-1.debian.tar.xz
+        │       ├── postman_7.27.1-1.dsc
+        │       └── postman_7.27.1.orig.tar.xz
+        └── t
+            └── typora
+                ├── typora_6.1.5-1_amd64.deb
+                ├── typora_6.1.5-1.debian.tar.xz
+                ├── typora_6.1.5-1.dsc
+                ├── typora_6.1.5.orig.tar.xz
+                └── typora-dbgsym_6.1.5-1_amd64.deb
+   
+<span class="m">28</span> directories, <span class="m">62</span> files
+   
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>接下来我们配置<code>Apache</code>服务，让其他人只可以访问到相关的文件，db 类的文件禁止访问</p>
+<p>编辑<code>/etc/apache2/apache2.conf</code>文件在相应位置添加以下内容</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="m">170</span> &lt;Directory <span class="s2">&#34;/var/www/html/repo/db/&#34;</span>&gt;
+<span class="m">171</span>         Require all denied
+<span class="m">172</span> &lt;/Directory&gt;
+<span class="m">173</span> 
+<span class="m">174</span> &lt;Directory <span class="s2">&#34;/var/www/html/repo/conf/&#34;</span>&gt;
+<span class="m">175</span>         Require all denied
+<span class="m">176</span> &lt;/Directory&gt;
+</code></pre></td></tr></table>
+</div>
+</div><p>然后重启<code>apache2</code>服务即可</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">systemctl restart apache2.service
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>最后 我们导入<code>gpg key</code>，放在仓库目录 让其他可以添加该key 安全的访问本仓库</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"> gpg --armor --output claystan.gpg.key --export
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>接下来你就可以将你的仓库地址公布出去 供自己或他人使用</p>
+<p>其他人下载添加的你的<code>gpg key</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">wget --no-check-certificate -qO -  http://10.20.32.240/repo/claystan.gpg.key<span class="p">|</span> sudo apt-key add -
+</code></pre></td></tr></table>
+</div>
+</div><p>然后配置仓库地址即可使用了</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">$ cat /etc/apt/sources.list                          
+deb http://10.20.32.240/repo/ buster main contrib non-free
+deb-src http://10.20.32.240/repo/ buster main contrib non-free
+   
+$ sudo apt update 
+</code></pre></td></tr></table>
+</div>
+</div><p>这里只是简单的介绍使用<code>reprepro</code>搭建本地 apt 仓库的方法，关于更多 <code>reprepro</code> 的用法，请使用 <code>man reprepro</code> 查看官方 man 手册页</p>
+<p>文章参考：https://wiki.debian.org/DebianRepository/SetupWithReprepro</p>
+</li>
+</ol>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Clay Stan</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-12-27
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/linux/">Linux</a>
+          <a href="/tags/debian/">Debian</a>
+          <a href="/tags/reprepro/">reprepro</a>
+          <a href="/tags/apt/">apt</a>
+          </div>
+      <nav class="post-nav">
+        
+        
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:claystan97@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/claystan/" class="iconfont icon-github" title="github"></a>
+      <a href="https://salsa.debian.org/claystan" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="https://space.bilibili.com/232638734" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="https://claystan.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2020<span class="heart"><i class="iconfont icon-heart"></i></span><span>Clay Stan</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

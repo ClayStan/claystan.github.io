@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Debian on Clay Stan&#39;s Blog</title>
+    <link>https://claystan.com/tags/debian/</link>
+    <description>Recent content in Debian on Clay Stan&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 27 Dec 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://claystan.com/tags/debian/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>使用 reprepro 搭建本地 apt 仓库</title>
+      <link>https://claystan.com/post/%E4%BD%BF%E7%94%A8reprepro%E6%90%AD%E5%BB%BA%E6%9C%AC%E5%9C%B0apt%E4%BB%93%E5%BA%93/</link>
+      <pubDate>Sun, 27 Dec 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://claystan.com/post/%E4%BD%BF%E7%94%A8reprepro%E6%90%AD%E5%BB%BA%E6%9C%AC%E5%9C%B0apt%E4%BB%93%E5%BA%93/</guid>
+      <description>Debian 使用reprepro搭建本地apt仓库 reprepro 是用于管理 deb 格式软件包，生成用于分发的仓库管理工具。 支持 .dsc/.deb/.udeb 等格式；会根据配置生成 Packages/Sources 文件以及压缩版本</description>
+    </item>
+    
+  </channel>
+</rss>
