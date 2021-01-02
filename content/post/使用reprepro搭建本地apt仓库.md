@@ -2,7 +2,7 @@
 title: "使用 reprepro 搭建本地 apt 仓库"           # 文章标题
 author: "Clay Stan"         # 文章作者
 description : "在 debian 或基于 debian 的 linux 发行版上使用 reprepro 搭建本地 apt 仓库"		    # 文章描述信息
-date: 2020-12.27            # 文章编写日期
+date: 2020-12-27            # 文章编写日期
 lastmod: 2020-12-27         # 文章修改日期
 
 tags : [                    # 文章所属标签
