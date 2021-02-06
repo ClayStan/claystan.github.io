@@ -2,6 +2,83 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://claystan.com/categories/</loc>
+    <lastmod>2021-02-06T18:38:22+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://claystan.com/</loc>
+    <lastmod>2021-02-06T18:38:22+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://claystan.com/tags/gpg/</loc>
+    <lastmod>2021-02-06T18:38:22+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://claystan.com/categories/gpg/</loc>
+    <lastmod>2021-02-06T18:38:22+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://claystan.com/post/gpg-pass%E5%91%BD%E4%BB%A4/</loc>
+    <lastmod>2021-02-06T18:38:22+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://claystan.com/tags/pass/</loc>
+    <lastmod>2021-02-06T18:38:22+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://claystan.com/post/</loc>
+    <lastmod>2021-02-06T18:38:22+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://claystan.com/tags/</loc>
+    <lastmod>2021-02-06T18:38:22+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://claystan.com/post/gpg%E5%85%A5%E9%97%A8%E4%B8%89/</loc>
+    <lastmod>2021-02-06T18:37:38+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://claystan.com/post/gpg%E5%85%A5%E9%97%A8%E4%BA%8C/</loc>
+    <lastmod>2021-02-06T18:37:34+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://claystan.com/post/gpg%E5%85%A5%E9%97%A8%E4%B8%80/</loc>
+    <lastmod>2021-02-06T18:37:25+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://claystan.com/tags/apt/</loc>
     <lastmod>2020-12-27T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -17,20 +94,6 @@
   
   <url>
     <loc>https://claystan.com/categories/blog/</loc>
-    <lastmod>2021-01-03T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://claystan.com/categories/</loc>
-    <lastmod>2021-01-03T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://claystan.com/</loc>
     <lastmod>2021-01-03T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -93,22 +156,8 @@
   </url>
   
   <url>
-    <loc>https://claystan.com/post/</loc>
-    <lastmod>2021-01-03T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://claystan.com/tags/reprepro/</loc>
     <lastmod>2020-12-27T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://claystan.com/tags/</loc>
-    <lastmod>2021-01-03T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>

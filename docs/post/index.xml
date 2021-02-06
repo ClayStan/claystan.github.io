@@ -6,7 +6,43 @@
     <description>Recent content in Posts on Clay Stan&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 27 Dec 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://claystan.com/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 06 Feb 2021 18:38:22 +0800</lastBuildDate><atom:link href="https://claystan.com/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>GPG Pass命令</title>
+      <link>https://claystan.com/post/gpg-pass%E5%91%BD%E4%BB%A4/</link>
+      <pubDate>Sat, 06 Feb 2021 18:38:22 +0800</pubDate>
+      
+      <guid>https://claystan.com/post/gpg-pass%E5%91%BD%E4%BB%A4/</guid>
+      <description>前言 前面我们讲的 GPG 的相关内容，对于大多数人来可能用的不多。今天我们就来实际的使用一下，用它来管理你的密码。 密码是我们日常都会用到的，而且使用</description>
+    </item>
+    
+    <item>
+      <title>GPG入门三</title>
+      <link>https://claystan.com/post/gpg%E5%85%A5%E9%97%A8%E4%B8%89/</link>
+      <pubDate>Sat, 06 Feb 2021 18:37:38 +0800</pubDate>
+      
+      <guid>https://claystan.com/post/gpg%E5%85%A5%E9%97%A8%E4%B8%89/</guid>
+      <description>前言 经过前面的两次的学习，各位小伙伴应该能够满足日常使用了。今天我们把剩下的一些知识给讲完，将来会用到的。 查看指纹 查看主钥的指纹 查看主钥的指</description>
+    </item>
+    
+    <item>
+      <title>GPG入门二</title>
+      <link>https://claystan.com/post/gpg%E5%85%A5%E9%97%A8%E4%BA%8C/</link>
+      <pubDate>Sat, 06 Feb 2021 18:37:34 +0800</pubDate>
+      
+      <guid>https://claystan.com/post/gpg%E5%85%A5%E9%97%A8%E4%BA%8C/</guid>
+      <description>前言 上一篇文章我们了解了怎么使用 GPG 进行加密、解密、签名。 这篇来讲讲密钥的导入导出以及子密钥的使用。 主钥与子钥 我们使用 GPG 的目的就是为了保证一些</description>
+    </item>
+    
+    <item>
+      <title>GPG入门一</title>
+      <link>https://claystan.com/post/gpg%E5%85%A5%E9%97%A8%E4%B8%80/</link>
+      <pubDate>Sat, 06 Feb 2021 18:37:25 +0800</pubDate>
+      
+      <guid>https://claystan.com/post/gpg%E5%85%A5%E9%97%A8%E4%B8%80/</guid>
+      <description>GPG 介绍 提到 GPG 不得不提一下 PGP(Pretty Good Privacy) ， PGP 最开始是由 Phil Zimmermann 开发，开发的目的是为了躲避监视，如果文件在网络上明文传输，那是多么危险。PGP 虽然受很多人喜</description>
+    </item>
+    
     <item>
       <title>使用 reprepro 搭建本地 apt 仓库</title>
       <link>https://claystan.com/post/%E4%BD%BF%E7%94%A8reprepro%E6%90%AD%E5%BB%BA%E6%9C%AC%E5%9C%B0apt%E4%BB%93%E5%BA%93/</link>

@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>GPG入门三 - Clay Stan&#39;s Blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Clay Stan" /><meta name="description" content="GPG 操作使用入门系列" /><meta name="keywords" content="GPG" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.80.0 with theme even" />
+
+
+<link rel="canonical" href="https://claystan.com/post/gpg%E5%85%A5%E9%97%A8%E4%B8%89/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.c7bc1becf36bcf6a9ebd25d2947e43a2eb745ddb0c9a32b43126fd7fa460c351.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="GPG入门三" />
+<meta property="og:description" content="GPG 操作使用入门系列" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://claystan.com/post/gpg%E5%85%A5%E9%97%A8%E4%B8%89/" />
+<meta property="article:published_time" content="2021-02-06T18:37:38+08:00" />
+<meta property="article:modified_time" content="2021-02-06T18:37:38+08:00" />
+<meta itemprop="name" content="GPG入门三">
+<meta itemprop="description" content="GPG 操作使用入门系列">
+<meta itemprop="datePublished" content="2021-02-06T18:37:38+08:00" />
+<meta itemprop="dateModified" content="2021-02-06T18:37:38+08:00" />
+<meta itemprop="wordCount" content="2256">
+
+
+
+<meta itemprop="keywords" content="GPG," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="GPG入门三"/>
+<meta name="twitter:description" content="GPG 操作使用入门系列"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Clay Stan</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Clay Stan</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">GPG入门三</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-02-06 </span>
+        <div class="post-category">
+            <a href="/categories/gpg/"> GPG </a>
+            </div>
+          <span class="more-meta"> 约 2256 字 </span>
+          <span class="more-meta"> 预计阅读 5 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    
+    <div class="post-content">
+      <!---->
+<h1 id="前言">前言</h1>
+<p>经过前面的两次的学习，各位小伙伴应该能够满足日常使用了。今天我们把剩下的一些知识给讲完，将来会用到的。</p>
+<h1 id="查看指纹">查看指纹</h1>
+<h2 id="查看主钥的指纹">查看主钥的指纹</h2>
+<p>查看主钥的指纹有很多种方法</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">➜  ~ gpg -k
+/home/ubuntu/.gnupg/pubring.kbx
+-------------------------------
+pub   rsa4096 2020-02-03 <span class="o">[</span>SC<span class="o">]</span>
+B7C62E9D96B0977DEDFDE399C7BB725A82D22F2F
+uid           <span class="o">[</span> unknown<span class="o">]</span> test1 <span class="o">(</span><span class="nb">test</span><span class="o">)</span> &lt;test@test.com&gt;
+sub   rsa4096 2020-02-03 <span class="o">[</span>E<span class="o">]</span>
+sub   rsa4096 2020-02-03 <span class="o">[</span>S<span class="o">]</span> <span class="o">[</span>expires: 2021-02-02<span class="o">]</span>
+
+<span class="c1"># 查看完整指纹</span>
+➜  ~ gpg --fingerprint
+/home/ubuntu/.gnupg/pubring.kbx
+-------------------------------
+pub   rsa4096 2020-02-03 <span class="o">[</span>SC<span class="o">]</span>
+B7C6 2E9D 96B0 977D EDFD  E399 C7BB 725A 82D2 2F2F
+uid           <span class="o">[</span> unknown<span class="o">]</span> test1 <span class="o">(</span><span class="nb">test</span><span class="o">)</span> &lt;test@test.com&gt;
+sub   rsa4096 2020-02-03 <span class="o">[</span>E<span class="o">]</span>
+sub   rsa4096 2020-02-03 <span class="o">[</span>S<span class="o">]</span> <span class="o">[</span>expires: 2021-02-02<span class="o">]</span>
+
+➜  ~ gpg --edit-key test1
+gpg <span class="o">(</span>GnuPG<span class="o">)</span> 2.2.4<span class="p">;</span> Copyright <span class="o">(</span>C<span class="o">)</span> <span class="m">2019</span> Free Software Foundation, Inc.
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+Secret key is available.
+
+sec  rsa4096/C7BB725A82D22F2F
+     created: 2020-02-03  expires: never       usage: SC
+     trust: unknown       validity: unknown
+ssb  rsa4096/C5F257E429558F85
+     created: 2020-02-03  expires: never       usage: E
+ssb  rsa4096/2D5337CD04EA4233
+     created: 2020-02-03  expires: 2021-02-02  usage: S
+<span class="o">[</span> unknown<span class="o">]</span> <span class="o">(</span>1<span class="o">)</span>. test1 <span class="o">(</span><span class="nb">test</span><span class="o">)</span> &lt;test@test.com&gt;
+
+<span class="c1"># 可以查完整的指纹</span>
+gpg&gt; fpr
+pub   rsa4096/C7BB725A82D22F2F 2020-02-03 test1 <span class="o">(</span><span class="nb">test</span><span class="o">)</span> &lt;test@test.com&gt;
+Primary key fingerprint: B7C6 2E9D 96B0 977D EDFD  E399 C7BB 725A 82D2 2F2F
+</code></pre></td></tr></table>
+</div>
+</div><p>这么多，平时用的不多，记住一个或两个就够用了。</p>
+<h2 id="查看子钥的指纹">查看子钥的指纹</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">➜  ~ gpg --edit-key test1
+gpg&gt; list
+
+sec  rsa4096/C7BB725A82D22F2F
+     created: 2020-02-03  expires: never       usage: SC
+     trust: ultimate      validity: ultimate
+ssb  rsa4096/C5F257E429558F85
+     created: 2020-02-03  expires: never       usage: E
+ssb  rsa4096/2D5337CD04EA4233
+     created: 2020-02-03  expires: 2021-02-02  usage: S
+<span class="o">[</span>ultimate<span class="o">]</span> <span class="o">(</span>1<span class="o">)</span>. test1 <span class="o">(</span><span class="nb">test</span><span class="o">)</span> &lt;test@test.com&gt;
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="修改密码">修改密码</h1>
+<p>为了提高密码的安全性，我们过一段时间需要改一次密码，同一个密码一直使用会有安全隐患。这节我们来看看怎么改密码。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">➜  ~ gpg --edit-key test1
+gpg <span class="o">(</span>GnuPG<span class="o">)</span> 2.2.4<span class="p">;</span> Copyright <span class="o">(</span>C<span class="o">)</span> <span class="m">2019</span> Free Software Foundation, Inc.
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+Secret key is available.
+
+sec  rsa4096/C7BB725A82D22F2F
+created: 2020-02-03  expires: never       usage: SC
+trust: ultimate      validity: ultimate
+ssb  rsa4096/C5F257E429558F85
+created: 2020-02-03  expires: never       usage: E
+ssb  rsa4096/2D5337CD04EA4233
+created: 2020-02-03  expires: 2021-02-02  usage: S
+<span class="o">[</span>ultimate<span class="o">]</span> <span class="o">(</span>1<span class="o">)</span>. test1 <span class="o">(</span><span class="nb">test</span><span class="o">)</span> &lt;test@test.com&gt;
+
+gpg&gt; passwd
+</code></pre></td></tr></table>
+</div>
+</div><p>紧接着输入旧密码，然后再输入新密码，这样就改好了。</p>
+<h1 id="更改过期时间">更改过期时间</h1>
+<p>我们使用<code>GPG</code>，用的很开心，有一天<code>GPG</code>提示你有一个密钥快过期了。这时候你可以选择创建一个新的子密钥，或者把这个密钥的过期时间延长。</p>
+<p>创建子密钥我们之前学过，现在来看看怎么把子密钥的过期时间延长。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">➜  ~ gpg --edit-key test1
+gpg <span class="o">(</span>GnuPG<span class="o">)</span> 2.2.4<span class="p">;</span> Copyright <span class="o">(</span>C<span class="o">)</span> <span class="m">2019</span> Free Software Foundation, Inc.
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+Secret key is available.
+
+sec  rsa4096/C7BB725A82D22F2F
+     created: 2020-02-03  expires: 2022-02-03  usage: SC
+     trust: ultimate      validity: ultimate
+ssb  rsa4096/C5F257E429558F85
+     created: 2020-02-03  expires: never       usage: E
+ssb  rsa4096/2D5337CD04EA4233
+     created: 2020-02-03  expires: 2021-02-02  usage: S
+<span class="o">[</span>ultimate<span class="o">]</span> <span class="o">(</span>1<span class="o">)</span>. test1 <span class="o">(</span><span class="nb">test</span><span class="o">)</span> &lt;test@test.com&gt;
+
+<span class="c1"># 选择第二个key，选中后这个key后面会有一个 *</span>
+gpg&gt; key <span class="m">2</span>
+
+sec  rsa4096/C7BB725A82D22F2F
+     created: 2020-02-03  expires: 2022-02-03  usage: SC
+     trust: ultimate      validity: ultimate
+ssb  rsa4096/C5F257E429558F85
+     created: 2020-02-03  expires: never       usage: E
+ssb* rsa4096/2D5337CD04EA4233
+     created: 2020-02-03  expires: 2021-02-02  usage: S
+<span class="o">[</span>ultimate<span class="o">]</span> <span class="o">(</span>1<span class="o">)</span>. test1 <span class="o">(</span><span class="nb">test</span><span class="o">)</span> &lt;test@test.com&gt;
+
+gpg&gt; expire
+Changing expiration <span class="nb">time</span> <span class="k">for</span> a subkey.
+Please specify how long the key should be valid.
+<span class="nv">0</span> <span class="o">=</span> key does not expire
+&lt;n&gt;  <span class="o">=</span> key expires in n days
+&lt;n&gt;w <span class="o">=</span> key expires in n weeks
+&lt;n&gt;m <span class="o">=</span> key expires in n months
+&lt;n&gt;y <span class="o">=</span> key expires in n years
+Key is valid <span class="k">for</span>? <span class="o">(</span>0<span class="o">)</span> 2y <span class="c1"># 改为 2 年</span>
+Key expires at Thu <span class="m">03</span> Feb <span class="m">2022</span> 03:57:10 PM CST
+Is this correct? <span class="o">(</span>y/N<span class="o">)</span> y
+
+sec  rsa4096/C7BB725A82D22F2F
+     created: 2020-02-03  expires: 2022-02-03  usage: SC
+     trust: ultimate      validity: ultimate
+ssb  rsa4096/C5F257E429558F85
+     created: 2020-02-03  expires: never       usage: E
+ssb* rsa4096/2D5337CD04EA4233
+     created: 2020-02-03  expires: 2022-02-03  usage: S
+<span class="o">[</span>ultimate<span class="o">]</span> <span class="o">(</span>1<span class="o">)</span>. test1 <span class="o">(</span><span class="nb">test</span><span class="o">)</span> &lt;test@test.com&gt;
+
+gpg&gt; save
+</code></pre></td></tr></table>
+</div>
+</div><p>在上面的操作中，我们把<code>2D5337CD04EA4233</code>的过期时间从<code>2021-02-02</code>改为了<code>2020-02-03</code>。</p>
+<h1 id="签名验证">签名验证</h1>
+<p>当我们在导入别人的公钥的时候，我们使用这个公钥进行验证签名时会得到一个警告，说本地密钥库不信任该公钥。如下所示</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">➜  ~ gpg --verify test.txt.sig
+gpg: assuming signed data in<span class="s1">&#39;test.txt&#39;</span>
+gpg: Signature made Tue <span class="m">04</span> Feb <span class="m">2020</span> 12:22:22 PM CST
+gpg:                using RSA key 88F1EAD03818FBC41B8241E63B15A852EB0A8251
+gpg:                issuer <span class="s2">&#34;test2@test.com&#34;</span>
+gpg: Good signature from <span class="s2">&#34;test2 (test2) &lt;test2@testcom&gt;&#34;</span> <span class="o">[</span>unknown<span class="o">]</span>
+<span class="c1"># 警告</span>
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.
+Primary key fingerprint: A7DB 6BFF <span class="m">3543</span> FCFD 6D06  87DA <span class="m">7092</span> DDB1 4E3B A740
+Subkey fingerprint: 88F1 EAD0 <span class="m">3818</span> FBC4 1B82  41E6 3B15 A852 EB0A <span class="m">8251</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>为了避免安全隐患，在使用别人的公钥之前，我们需要用我们自己的密钥对别人的公钥进行签名认证，这样才能确保这个公钥确实是某个人的，而不是其他人篡改过的。在进行签名的时候，要向他人确认这个公钥的指纹是不是真的是他的，如果是才能给这个公钥签名。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">➜  ~ gpg --edit-key test2
+gpg&gt; sign
+
+pub  rsa4096/7092DDB14E3BA740
+created: 2020-01-06  expires: never       usage: SC
+trust: unknown       validity: unknown
+Primary key fingerprint: A7DB 6BFF <span class="m">3543</span> FCFD 6D06  87DA <span class="m">7092</span> DDB1 4E3B A740
+
+test2 <span class="o">(</span>test2<span class="o">)</span> &lt;test2@test.com&gt;
+
+Are you sure that you want to sign this key with your
+key <span class="s2">&#34;test1 (test) &lt;test@test.com&gt;&#34;</span> <span class="o">(</span>C7BB725A82D22F2F<span class="o">)</span>
+
+Really sign? <span class="o">(</span>y/N<span class="o">)</span> y
+
+gpg&gt; save
+➜  ~ gpg --verify test.txt.sig
+gpg: assuming signed data in<span class="s1">&#39;test.txt&#39;</span>
+gpg: Signature made Tue <span class="m">04</span> Feb <span class="m">2020</span> 12:22:22 PM CST
+gpg:                using RSA key 88F1EAD03818FBC41B8241E63B15A852EB0A8251
+gpg:                issuer <span class="s2">&#34;test2@test.com&#34;</span>
+gpg: checking the trustdb
+gpg: marginals needed: <span class="m">3</span>  completes needed: <span class="m">1</span>  trust model: pgp
+gpg: depth: <span class="m">0</span>  valid:   <span class="m">1</span>  signed:   <span class="m">1</span>  trust: 0-, 0q, 0n, 0m, 0f, 1u
+gpg: depth: <span class="m">1</span>  valid:   <span class="m">1</span>  signed:   <span class="m">0</span>  trust: 1-, 0q, 0n, 0m, 0f, 0u
+gpg: Good signature from <span class="s2">&#34;test2 (test) &lt;test2@test.com&gt;&#34;</span> <span class="o">[</span>full<span class="o">]</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>现在警告消失了。</p>
+<p>这里有一点要注意，签名是使用私钥签的。因为你的公钥是公开的，所以别人有你的公钥，如果使用公钥签名的话，任何人只要有你的公钥都可以代替你签名，签名也就没有意义了。</p>
+<h1 id="信任密钥">信任密钥</h1>
+<p>同样的当我们把密钥从一台电脑导出，然后从另一台电脑导入，在对文件进行加密时，也是会碰到不确定这个密钥是否属于本人的警告。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">➜  ~ gpg -a -o trust.txt -r test1 -e test.txt
+gpg: C5F257E429558F85: There is no assurance this key belongs to the named user
+sub  rsa4096/C5F257E429558F85 2020-02-03 test1 <span class="o">(</span><span class="nb">test</span><span class="o">)</span> &lt;test@test.com&gt;
+Primary key fingerprint: B7C6 2E9D 96B0 977D EDFD  E399 C7BB 725A 82D2 2F2F
+Subkey fingerprint: B923 473E 2D23 9E97 BF4C  AA31 C5F2 57E4 <span class="m">2955</span> 8F85
+
+It is NOT certain that the key belongs to the person named
+in the user ID.  If you *really* know what you are doing,
+   you may answer the next question with yes.
+
+   Use this key anyway? <span class="o">(</span>y/N<span class="o">)</span> y
+</code></pre></td></tr></table>
+</div>
+</div><p>为了消除这个警告，我们需要对导入的密钥进行信任</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">➜  ~ gpg --edit-key test1
+gpg <span class="o">(</span>GnuPG<span class="o">)</span> 2.2.4<span class="p">;</span> Copyright <span class="o">(</span>C<span class="o">)</span> <span class="m">2019</span> Free Software Foundation, Inc.
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+Secret key is available.
+
+sec  rsa4096/C7BB725A82D22F2F
+     created: 2020-02-03  expires: never       usage: SC
+     trust: unknown       validity: unknown
+ssb  rsa4096/C5F257E429558F85
+     created: 2020-02-03  expires: never       usage: E
+ssb  rsa4096/2D5337CD04EA4233
+     created: 2020-02-03  expires: 2021-02-02  usage: S
+<span class="o">[</span> unknown<span class="o">]</span> <span class="o">(</span>1<span class="o">)</span>. test1 <span class="o">(</span><span class="nb">test</span><span class="o">)</span> &lt;test@test.com&gt;
+gpg&gt; trust
+sec  rsa4096/C7BB725A82D22F2F
+     created: 2020-02-03  expires: never       usage: SC
+     trust: unknown       validity: unknown
+ssb  rsa4096/C5F257E429558F85
+     created: 2020-02-03  expires: never       usage: E
+ssb  rsa4096/2D5337CD04EA4233
+     created: 2020-02-03  expires: 2021-02-02  usage: S
+<span class="o">[</span> unknown<span class="o">]</span> <span class="o">(</span>1<span class="o">)</span>. test1 <span class="o">(</span><span class="nb">test</span><span class="o">)</span> &lt;test@test.com&gt;
+
+Please decide how far you trust this user to correctly verify other users keys
+<span class="o">(</span>by looking at passports, checking fingerprints from different sources, etc.<span class="o">)</span>
+
+  <span class="nv">1</span> <span class="o">=</span> I don<span class="s1">&#39;t know or won&#39;</span>t say
+  <span class="nv">2</span> <span class="o">=</span> I <span class="k">do</span> NOT trust
+  <span class="nv">3</span> <span class="o">=</span> I trust marginally
+  <span class="nv">4</span> <span class="o">=</span> I trust fully
+  <span class="nv">5</span> <span class="o">=</span> I trust ultimately
+  <span class="nv">m</span> <span class="o">=</span> back to the main menu
+<span class="c1"># 可以选择 1-5，信任级别从低到高 </span>
+Your decision? <span class="m">5</span>
+Do you really want to <span class="nb">set</span> this key to ultimate trust? <span class="o">(</span>y/N<span class="o">)</span> y
+
+sec  rsa4096/C7BB725A82D22F2F
+     created: 2020-02-03  expires: never       usage: SC
+     trust: ultimate      validity: unknown
+ssb  rsa4096/C5F257E429558F85
+     created: 2020-02-03  expires: never       usage: E
+ssb  rsa4096/2D5337CD04EA4233
+     created: 2020-02-03  expires: 2021-02-02  usage: S
+<span class="o">[</span> unknown<span class="o">]</span> <span class="o">(</span>1<span class="o">)</span>. test1 <span class="o">(</span><span class="nb">test</span><span class="o">)</span> &lt;test@test.com&gt;
+Please note that the shown key validity is not necessarily correct
+unless you restart the program.
+
+gpg&gt; save
+Key not changed so no update needed.
+</code></pre></td></tr></table>
+</div>
+</div><p>当我们再进行加密时，这个警告就消失了。</p>
+<h1 id="发布公钥到服务器">发布公钥到服务器</h1>
+<p>我们和别人交换公钥通常会把公钥直接发给对方，并告诉他指纹，让他导入之后进行验证，这样我们之间是通过社交来进行验证的。不需要第三方的认证机构来进行先认证。</p>
+<p>除了上面这种方式还可以把公钥发送到公钥服务器，比如MIT PGP Key ServerOpenPGP Keyserver等，这样别人就可以通过这个服务器下载到你的公钥。导入之后最好还是需要进行验证一下指纹，确保安全。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">➜  ~ gpg --send-keys test1 --keyserver pgp.mit.edu
+</code></pre></td></tr></table>
+</div>
+</div><p>参考资料：</p>
+<p>[1]https://zhuanlan.zhihu.com/p/21267738</p>
+<p>本文来源于 微信公众号  &ldquo;devbins&rdquo;  所分享内容</p>
+
+    </div>
+
+    
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/gpg/">GPG</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/gpg-pass%E5%91%BD%E4%BB%A4/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">GPG Pass命令</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/gpg%E5%85%A5%E9%97%A8%E4%BA%8C/">
+            <span class="next-text nav-default">GPG入门二</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:claystan97@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/claystan/" class="iconfont icon-github" title="github"></a>
+      <a href="https://salsa.debian.org/claystan" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="https://space.bilibili.com/232638734" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="https://claystan.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2020 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>Clay Stan</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

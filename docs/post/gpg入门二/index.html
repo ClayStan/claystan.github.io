@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>GPG入门二 - Clay Stan&#39;s Blog</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Clay Stan" /><meta name="description" content="GPG 操作使用入门系列" /><meta name="keywords" content="GPG" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.80.0 with theme even" />
+
+
+<link rel="canonical" href="https://claystan.com/post/gpg%E5%85%A5%E9%97%A8%E4%BA%8C/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<link href="/sass/main.min.c7bc1becf36bcf6a9ebd25d2947e43a2eb745ddb0c9a32b43126fd7fa460c351.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="GPG入门二" />
+<meta property="og:description" content="GPG 操作使用入门系列" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://claystan.com/post/gpg%E5%85%A5%E9%97%A8%E4%BA%8C/" />
+<meta property="article:published_time" content="2021-02-06T18:37:34+08:00" />
+<meta property="article:modified_time" content="2021-02-06T18:37:34+08:00" />
+<meta itemprop="name" content="GPG入门二">
+<meta itemprop="description" content="GPG 操作使用入门系列">
+<meta itemprop="datePublished" content="2021-02-06T18:37:34+08:00" />
+<meta itemprop="dateModified" content="2021-02-06T18:37:34+08:00" />
+<meta itemprop="wordCount" content="2025">
+
+
+
+<meta itemprop="keywords" content="GPG," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="GPG入门二"/>
+<meta name="twitter:description" content="GPG 操作使用入门系列"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Clay Stan</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Clay Stan</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">GPG入门二</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-02-06 </span>
+        <div class="post-category">
+            <a href="/categories/gpg/"> GPG </a>
+            </div>
+          <span class="more-meta"> 约 2025 字 </span>
+          <span class="more-meta"> 预计阅读 5 分钟 </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
+      </div>
+    </header>
+
+    
+    <div class="post-content">
+      <!---->
+<h1 id="前言">前言</h1>
+<p>上一篇文章我们了解了怎么使用 <code>GPG</code> 进行加密、解密、签名。</p>
+<p>这篇来讲讲密钥的导入导出以及子密钥的使用。</p>
+<h1 id="主钥与子钥">主钥与子钥</h1>
+<p>我们使用 <code>GPG</code> 的目的就是为了保证一些重要的隐私文件不会被别人轻松获取到文件的内容，所以要确保在使用 <code>GPG</code> 的过程中， <code>GPG</code> 本身不会成为一个隐患。</p>
+<p><code>GPG</code> 一个好的做法是在一台不能联网的机器上创建好密钥，并且把私钥保存好放在一个非常安全的地方。</p>
+<p>之后我们需要创建子密钥，子密钥用来进行加密或者签名。而主密钥仅仅用来管理子密钥，注意只有主私钥才能创建新的子密钥。这样做的好处就是，一旦子密钥泄露了，我们只需要撤销子密钥就行了，而不会影响主密钥。</p>
+<h1 id="查看">查看</h1>
+<p>在创建子钥之前我们先来看看已有的公钥和私钥</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 查看公钥</span>
+➜  ~ gpg -k
+/home/test/.gnupg/pubring.kbx
+-----------------------------
+pub   rsa2048 2020-02-02 <span class="o">[</span>SC<span class="o">]</span> <span class="o">[</span>expires: 2022-02-01<span class="o">]</span>
+      B7C62E9D96B0977DEDFDE399C7BB725A82D22F2F
+uid           <span class="o">[</span>ultimate<span class="o">]</span> test1 &lt;test1@test.com&gt;
+sub   rsa2048 2020-02-02 <span class="o">[</span>E<span class="o">]</span> <span class="o">[</span>expires: 2022-02-01<span class="o">]</span>
+
+<span class="c1"># 查看私钥 K 是大写</span>
+➜  ~ gpg -K
+/home/test/.gnupg/pubring.kbx
+-----------------------------
+pub   rsa2048 2020-02-02 <span class="o">[</span>SC<span class="o">]</span> <span class="o">[</span>expires: 2022-02-01<span class="o">]</span>
+      B7C62E9D96B0977DEDFDE399C7BB725A82D22F2F
+uid           <span class="o">[</span>ultimate<span class="o">]</span> test1 &lt;test1@test.com&gt;
+ssb   rsa2048 2020-02-02 <span class="o">[</span>E<span class="o">]</span> <span class="o">[</span>expires: 2022-02-01<span class="o">]</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>从上面可以看到，我们在生成密钥的时候，默认就会帮我们生成一对子钥。默认是用来加密的。</p>
+<p>公钥和私钥是成对存在的。</p>
+<p>在上面的输出中有一些符号具有特殊含义，我们来看一下</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">名词</th>
+<th style="text-align:left">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">uid</td>
+<td style="text-align:left">拥有者信息，姓名和邮箱</td>
+</tr>
+<tr>
+<td style="text-align:left">pub</td>
+<td style="text-align:left">public key 公钥</td>
+</tr>
+<tr>
+<td style="text-align:left">sub</td>
+<td style="text-align:left">public subkey 子公钥</td>
+</tr>
+<tr>
+<td style="text-align:left">sec</td>
+<td style="text-align:left">secret key 私钥</td>
+</tr>
+<tr>
+<td style="text-align:left">ssb</td>
+<td style="text-align:left">secret subkey 子私钥</td>
+</tr>
+<tr>
+<td style="text-align:left">S</td>
+<td style="text-align:left">sign 表示可以用来签名</td>
+</tr>
+<tr>
+<td style="text-align:left">C</td>
+<td style="text-align:left">Certify 表示可以用于认证其他密钥</td>
+</tr>
+<tr>
+<td style="text-align:left">E</td>
+<td style="text-align:left">Encrypt 表示可以用来加密</td>
+</tr>
+<tr>
+<td style="text-align:left">A</td>
+<td style="text-align:left">Authentication 表示可以用来认证</td>
+</tr>
+</tbody>
+</table>
+<h1 id="创建子钥">创建子钥</h1>
+<p>我们已经有了一个加密的 <code>subkey</code> ，接下来我们来创建一个用于签名的 <code>subkey</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">➜  ~ gpg --edit-key test1
+gpg <span class="o">(</span>GnuPG<span class="o">)</span> 2.2.4<span class="p">;</span> Copyright <span class="o">(</span>C<span class="o">)</span> <span class="m">2019</span> Free Software Foundation, Inc.
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+Secret key is available.
+
+sec  rsa4096/C7BB725A82D22F2F
+     created: 2020-02-03  expires: never       usage: SC
+     trust: ultimate      validity: ultimate
+ssb  rsa4096/C5F257E429558F85
+     created: 2020-02-03  expires: never       usage: E
+<span class="o">[</span>ultimate<span class="o">]</span> <span class="o">(</span>1<span class="o">)</span>. test1 <span class="o">(</span><span class="nb">test</span><span class="o">)</span> &lt;test@test.com&gt;
+
+<span class="c1"># 添加 subkey</span>
+gpg&gt; addkey
+Please <span class="k">select</span> what kind of key you want:
+   <span class="o">(</span>3<span class="o">)</span> DSA <span class="o">(</span>sign only<span class="o">)</span>
+   <span class="o">(</span>4<span class="o">)</span> RSA <span class="o">(</span>sign only<span class="o">)</span>
+   <span class="o">(</span>5<span class="o">)</span> Elgamal <span class="o">(</span>encrypt only<span class="o">)</span>
+   <span class="o">(</span>6<span class="o">)</span> RSA <span class="o">(</span>encrypt only<span class="o">)</span>
+<span class="c1"># 使用 RSA 算法</span>
+Your selection? <span class="m">4</span>
+RSA keys may be between <span class="m">1024</span> and <span class="m">4096</span> bits long.
+What keysize <span class="k">do</span> you want? <span class="o">(</span>3072<span class="o">)</span> <span class="m">4096</span>
+Requested keysize is <span class="m">4096</span> bits
+Please specify how long the key should be valid.
+         <span class="nv">0</span> <span class="o">=</span> key does not expire
+         &lt;n&gt;  <span class="o">=</span> key expires in n days
+         &lt;n&gt;w <span class="o">=</span> key expires in n weeks
+         &lt;n&gt;m <span class="o">=</span> key expires in n months
+         &lt;n&gt;y <span class="o">=</span> key expires in n years
+<span class="c1"># 有效期为 1 年</span>
+Key is valid <span class="k">for</span>? <span class="o">(</span>0<span class="o">)</span> 1y
+Key expires at Tue <span class="m">02</span> Feb <span class="m">2021</span> 02:20:17 PM CST
+Is this correct? <span class="o">(</span>y/N<span class="o">)</span> y
+Really create? <span class="o">(</span>y/N<span class="o">)</span> y
+We need to generate a lot of random bytes. It is a good idea to perform
+some other action <span class="o">(</span><span class="nb">type</span> on the keyboard, move the mouse, utilize the
+                   disks<span class="o">)</span> during the prime generation<span class="p">;</span> this gives the random number
+generator a better chance to gain enough entropy.
+
+sec  rsa4096/C7BB725A82D22F2F
+     created: 2020-02-03  expires: never       usage: SC
+     trust: ultimate      validity: ultimate
+ssb  rsa4096/C5F257E429558F85
+     created: 2020-02-03  expires: never       usage: E
+ssb  rsa4096/2D5337CD04EA4233
+     created: 2020-02-03  expires: 2021-02-02  usage: S
+<span class="o">[</span>ultimate<span class="o">]</span> <span class="o">(</span>1<span class="o">)</span>. test1 <span class="o">(</span><span class="nb">test</span><span class="o">)</span> &lt;test@test.com&gt;
+
+gpg&gt; q
+Save changes? <span class="o">(</span>y/N<span class="o">)</span> y
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="导出">导出</h1>
+<h2 id="导出公钥">导出公钥</h2>
+<p>在进行网络传输之前，我们用别人的公钥进行加密，他拿到加密文件之后就可以用私钥进行解密。</p>
+<p>如果别人想要给我们发送一个加密文件的话，我们就需要把我们的公钥给他，所以我们需要导出公钥。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">➜  ~ gpg -a --export test1
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+mQINBF43lckBEAC5ocC6xzvvI8Djetp/UnotdfVkXlLFSTCf6RlaNOPV1UcKPp2H
+N0R4UYqLQbTjMsk59kmDEz+xJNbDFWygTSNjK9B46SjOy7QMSl5r+jJMrvPkz7mV
+...
+r4N5jIjDOP3nWVaVhJiD99KG6ZBVbIkZC3+w+ioF/U1GhlU3vfvvJa+QKiLyTj10
+Vd4ImRX3fFquDwqyUQlxNLS9rdhUdVQndvQCmGq18tsdCZ3ZDI+/tZeEhTm86EGL
+Mp+VgpXO5w5Yjpb30iT0eGpGOaElif0Vod4ogto<span class="o">=</span>
+<span class="o">=</span>8Qzo
+-----END PGP PUBLIC KEY BLOCK-----
+</code></pre></td></tr></table>
+</div>
+</div><p>这样的方式会把公钥直接输出到控制台，如果我们想导出到文件中可以添加 <code>-o</code> 参数来导出到 <code>pub.txt</code> 中。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">➜  ~ gpg -o pub.txt -a --export test1
+</code></pre></td></tr></table>
+</div>
+</div><p>导出特定的公钥可以使用 <code>gpg -o pubsig.txt -a --export 2D5337CD04EA4233!</code> 末尾的 <code>!</code> 不要忘记。</p>
+<h2 id="导出私钥">导出私钥</h2>
+<p>为了安全起见，我们的主私钥应该存放在安全的地方，其他时候应该使用子私密钥。所以我们需要把私钥也导出，然后删掉本地的私钥。导出的私钥包含了公钥</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">➜  ~ gpg -o sec.txt -a --export-secret-keys test1
+cat sec.txt
+-----BEGIN PGP PRIVATE KEY BLOCK-----
+
+lQdGBF43lckBEAC5ocC6xzvvI8Djetp/UnotdfVkXlLFSTCf6RlaNOPV1UcKPp2H
+N0R4UYqLQbTjMsk59kmDEz+xJNbDFWygTSNjK9B46SjOy7QMSl5r+jJMrvPkz7mV
+...
+dVQndvQCmGq18tsdCZ3ZDI+/tZeEhTm86EGLMp+VgpXO5w5Yjpb30iT0eGpGOaEl
+<span class="nv">if0Vod4ogto</span><span class="o">=</span>
+<span class="o">=</span>FBLL
+-----END PGP PRIVATE KEY BLOCK-----
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="导出子私钥">导出子私钥</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">➜  ~ gpg -o subkeys.txt -a --export-secret-subkeys test1
+cat subkeys.txt
+-----BEGIN PGP PRIVATE KEY BLOCK-----
+
+lQIVBF43lckBEAC5ocC6xzvvI8Djetp/UnotdfVkXlLFSTCf6RlaNOPV1UcKPp2H
+N0R4UYqLQbTjMsk59kmDEz+xJNbDFWygTSNjK9B46SjOy7QMSl5r+jJMrvPkz7mV
+...
+fFquDwqyUQlxNLS9rdhUdVQndvQCmGq18tsdCZ3ZDI+/tZeEhTm86EGLMp+VgpXO
+<span class="nv">5w5Yjpb30iT0eGpGOaElif0Vod4ogto</span><span class="o">=</span>
+<span class="o">=</span>Bb/l
+-----END PGP PRIVATE KEY BLOCK-----
+</code></pre></td></tr></table>
+</div>
+</div><p>上面这种方式会把所有的子私钥都导出，如果想导出特定的可以用如下方法。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 导出子私密钥 ID 最后面有一个 ! 不要忘记</span>
+➜  ~ gpg -o secsig.txt -a --export-secret-subkey 2D5337CD04EA4233!
+cat secsig.txt
+-----BEGIN PGP PRIVATE KEY BLOCK-----
+
+lQIVBF43lckBEAC5ocC6xzvvI8Djetp/UnotdfVkXlLFSTCf6RlaNOPV1UcKPp2H
+...
+l4SFObzoQYsyn5WClc7nDliOlvfSJPR4akY5oSWJ/RWh3iiC2g<span class="o">==</span>
+<span class="o">=</span>dKB1
+-----END PGP PRIVATE KEY BLOCK-----
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="导入">导入</h1>
+<h2 id="导入公钥">导入公钥</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">➜  ~ gpg --import pub.txt
+gpg: directory <span class="s1">&#39;/home/test/.gnupg&#39;</span> created
+gpg: keybox <span class="s1">&#39;/home/test/.gnupg/pubring.kbx&#39;</span> created
+gpg: /home/ubuntu/.gnupg/trustdb.gpg: trustdb created
+gpg: key C7BB725A82D22F2F: public key <span class="s2">&#34;test1 (test) &lt;test@test.com&gt;&#34;</span> imported
+gpg: Total number processed: <span class="m">1</span>
+gpg:               imported: <span class="m">1</span>
+<span class="c1"># 查看公钥</span>
+➜  ~ gpg -k
+/home/ubuntu/.gnupg/pubring.kbx
+-------------------------------
+pub   rsa4096 2020-02-03 <span class="o">[</span>SC<span class="o">]</span>
+B7C62E9D96B0977DEDFDE399C7BB725A82D22F2F
+uid           <span class="o">[</span> unknown<span class="o">]</span> test1 <span class="o">(</span><span class="nb">test</span><span class="o">)</span> &lt;test@test.com&gt;
+sub   rsa4096 2020-02-03 <span class="o">[</span>E<span class="o">]</span>
+sub   rsa4096 2020-02-03 <span class="o">[</span>S<span class="o">]</span> <span class="o">[</span>expires: 2021-02-02<span class="o">]</span>
+<span class="c1"># 查看私钥</span>
+➜  ~ gpg -K
+<span class="c1"># 没有输出</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>可以看到只有公钥导进来了，私钥没有被导进来</p>
+<h2 id="导入私钥">导入私钥</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">➜  ~ gpg --import secsig.txt
+gpg: key C7BB725A82D22F2F: <span class="s2">&#34;test1 (test) &lt;test@test.com&gt;&#34;</span> not changed
+gpg: To migrate <span class="s1">&#39;secring.gpg&#39;</span>, with each smartcard, run: gpg --card-status
+gpg: key C7BB725A82D22F2F: secret key imported
+gpg: Total number processed: <span class="m">1</span>
+gpg:              unchanged: <span class="m">1</span>
+gpg:       secret keys read: <span class="m">1</span>
+gpg:   secret keys imported: <span class="m">1</span>
+<span class="c1"># 查看私钥</span>
+➜  ~ gpg -K
+/home/ubuntu/.gnupg/pubring.kbx
+-------------------------------
+sec#  rsa4096 2020-02-03 <span class="o">[</span>SC<span class="o">]</span>
+B7C62E9D96B0977DEDFDE399C7BB725A82D22F2F
+uid           <span class="o">[</span> unknown<span class="o">]</span> test1 <span class="o">(</span><span class="nb">test</span><span class="o">)</span> &lt;test@test.com&gt;
+ssb#  rsa4096 2020-02-03 <span class="o">[</span>E<span class="o">]</span>
+ssb   rsa4096 2020-02-03 <span class="o">[</span>S<span class="o">]</span> <span class="o">[</span>expires: 2021-02-02<span class="o">]</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这次我们导入了签名用的子私密钥，所以可以查看到。另外在主私密钥前面有一个 <code>#</code> 这个表示这个密钥不在本地，也就是不存在。接下来我们把主密钥也导进来。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">➜  ~ gpg --import sec.txt
+gpg: key C7BB725A82D22F2F: <span class="s2">&#34;test1 (test) &lt;test@test.com&gt;&#34;</span> not changed
+gpg: key C7BB725A82D22F2F: secret key imported
+gpg: Total number processed: <span class="m">1</span>
+gpg:              unchanged: <span class="m">1</span>
+gpg:       secret keys read: <span class="m">1</span>
+gpg:   secret keys imported: <span class="m">1</span>
+gpg:  secret keys unchanged: <span class="m">1</span>
+<span class="c1"># 查看私钥</span>
+➜  ~ gpg -K
+/home/ubuntu/.gnupg/pubring.kbx
+-------------------------------
+sec   rsa4096 2020-02-03 <span class="o">[</span>SC<span class="o">]</span>
+B7C62E9D96B0977DEDFDE399C7BB725A82D22F2F
+uid           <span class="o">[</span> unknown<span class="o">]</span> test1 <span class="o">(</span><span class="nb">test</span><span class="o">)</span> &lt;test@test.com&gt;
+ssb   rsa4096 2020-02-03 <span class="o">[</span>E<span class="o">]</span>
+ssb   rsa4096 2020-02-03 <span class="o">[</span>S<span class="o">]</span> <span class="o">[</span>expires: 2021-02-02<span class="o">]</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这次就能看到主私密钥被导入进来了，前面的 <code>#</code> 没有了。</p>
+<h1 id="删除">删除</h1>
+<h2 id="删除公钥">删除公钥</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">➜  ~ gpg --delete-key test1
+gpg <span class="o">(</span>GnuPG<span class="o">)</span> 2.2.4<span class="p">;</span> Copyright <span class="o">(</span>C<span class="o">)</span> <span class="m">2019</span> Free Software Foundation, Inc.
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+pub  rsa4096/C7BB725A82D22F2F 2020-02-03 test1 <span class="o">(</span><span class="nb">test</span><span class="o">)</span> &lt;test@test.com&gt;
+
+Delete this key from the keyring? <span class="o">(</span>y/N<span class="o">)</span> y
+</code></pre></td></tr></table>
+</div>
+</div><p>这样会把主公钥删除，要想删除所有的可以使用 <code>gpg --delete-keys test1</code></p>
+<h2 id="删除私钥">删除私钥</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">➜  ~ gpg --delete-secret-key test1
+gpg <span class="o">(</span>GnuPG<span class="o">)</span> 2.2.4<span class="p">;</span> Copyright <span class="o">(</span>C<span class="o">)</span> <span class="m">2019</span> Free Software Foundation, Inc.
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+
+sec  rsa4096/C7BB725A82D22F2F 2020-02-03 test1 <span class="o">(</span><span class="nb">test</span><span class="o">)</span> &lt;test@test.com&gt;
+
+Delete this key from the keyring? <span class="o">(</span>y/N<span class="o">)</span> y
+This is a secret key! - really delete? <span class="o">(</span>y/N<span class="o">)</span> y
+</code></pre></td></tr></table>
+</div>
+</div><p>同样的这样只会把主私钥删除，要想删除所有的可以使用 <code>gpg --delete-secret-keys test1</code></p>
+<h1 id="为什么不用私钥加密">为什么不用私钥加密</h1>
+<p>因为公钥是公开的，所有人都可以知道，用私钥加密后，公钥可以解密。这样等于大家都知道了，加密也就没有意义了。</p>
+<p>本文来源于 微信公众号  &ldquo;devbins&rdquo;  所分享内容</p>
+
+    </div>
+
+    
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/gpg/">GPG</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/gpg%E5%85%A5%E9%97%A8%E4%B8%89/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">GPG入门三</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/gpg%E5%85%A5%E9%97%A8%E4%B8%80/">
+            <span class="next-text nav-default">GPG入门一</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:claystan97@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/claystan/" class="iconfont icon-github" title="github"></a>
+      <a href="https://salsa.debian.org/claystan" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="https://space.bilibili.com/232638734" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="https://claystan.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <div class="busuanzi-footer">
+    <span id="busuanzi_container_site_pv"> 本站总访问量 <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次 </span>
+      <span class="division">|</span>
+    <span id="busuanzi_container_site_uv"> 本站总访客数 <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 人 </span>
+  </div>
+
+  <span class="copyright-year">
+    &copy; 
+    2020 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>Clay Stan</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

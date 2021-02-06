@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>pass on Clay Stan&#39;s Blog</title>
+    <link>https://claystan.com/tags/pass/</link>
+    <description>Recent content in pass on Clay Stan&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 06 Feb 2021 18:38:22 +0800</lastBuildDate><atom:link href="https://claystan.com/tags/pass/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>GPG Pass命令</title>
+      <link>https://claystan.com/post/gpg-pass%E5%91%BD%E4%BB%A4/</link>
+      <pubDate>Sat, 06 Feb 2021 18:38:22 +0800</pubDate>
+      
+      <guid>https://claystan.com/post/gpg-pass%E5%91%BD%E4%BB%A4/</guid>
+      <description>前言 前面我们讲的 GPG 的相关内容，对于大多数人来可能用的不多。今天我们就来实际的使用一下，用它来管理你的密码。 密码是我们日常都会用到的，而且使用</description>
+    </item>
+    
+  </channel>
+</rss>
